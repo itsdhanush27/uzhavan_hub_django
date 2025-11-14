@@ -1,0 +1,218 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container mt-5">
+    <!-- Learning Header -->
+    <div class="row">
+        <div class="col-12">
+            <div class="learning-header mb-4 p-4 rounded" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white;">
+                <h1>🌾 விவசாய அறிவு மையம்</h1>
+                <p class="lead">விவசாய குறிப்புகள், நிலைத்துறை நடைமுறைகள், சிறந்த தொழில்நுட்பங்களை நிபுணர்களிடமிருந்து கற்றுக் கொள்ளுங்கள்.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Filter -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex flex-wrap gap-2">
+                <a href="{% url 'learning' %}" class="btn {% if not selected_category %}btn-success{% else %}btn-outline-secondary{% endif %} btn-sm">அனைத்து கட்டுரைகள்</a>
+                {% for category in categories %}
+                <a href="?category={{ category }}" class="btn {% if selected_category == category %}btn-success{% else %}btn-outline-secondary{% endif %} btn-sm">{{ category }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Articles Grid -->
+    <div class="row">
+        {% if articles %}
+            {% for article in articles %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card product-card h-100">
+                    {% if article.imageURL %}
+                    <img class="card-img-top" src="{{ article.imageURL }}" alt="{{ article.title }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                    <div class="card-img-top placeholder-img" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white; font-size: 48px;">🌱</div>
+                    {% endif %}
+                    
+                    <div class="card-body d-flex flex-column">
+                        <span class="badge badge-success mb-2" style="align-self: flex-start;">{{ article.category }}</span>
+                        <h5 class="card-title">{{ article.title }}</h5>
+                        <p class="card-text flex-grow-1">{{ article.content|truncatewords:30 }}</p>
+                        
+                        <div class="mt-3">
+                            <small class="text-muted">📅 {{ article.date_created|date:"M d, Y" }}</small>
+                        </div>
+                        
+                        <a href="#article-{{ article.id }}" class="btn btn-sm btn-success mt-2" data-toggle="modal" data-target="#articleModal{{ article.id }}">மேலும் வாசிக்க</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article Modal -->
+            <div class="modal fade" id="articleModal{{ article.id }}" tabindex="-1" role="dialog" aria-labelledby="articleModalLabel{{ article.id }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="articleModalLabel{{ article.id }}">{{ article.title }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {% if article.imageURL %}
+                            <img src="{{ article.imageURL }}" alt="{{ article.title }}" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 20px;">
+                            {% endif %}
+                            
+                            <div class="article-meta mb-3">
+                                <span class="badge badge-success">{{ article.category }}</span>
+                                <small class="text-muted ml-2">📅 {{ article.date_created|date:"M d, Y" }}</small>
+                            </div>
+                            
+                            <div class="article-content">
+                                {{ article.content|linebreaks }}
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">மூடு</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+                <div class="col-12">
+            <div class="alert alert-info" role="alert">
+                <h4 class="alert-heading">கட்டுரைகள் இல்லை</h4>
+                <p>இந்த பகுப்பில் எந்தக் கட்டுரைகளும் இல்லை. விரைவில் புதிய விவசாய குறிப்புகள் மற்றும் தொழில்நுட்பங்களுடன் மீண்டும் பாருங்கள்!</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+.learning-header {
+    background: var(--card-bg) !important;
+    color: var(--fg) !important;
+}
+
+.learning-header h1 {
+    color: var(--fg-heading);
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.learning-header .lead {
+    color: var(--muted, rgba(230,238,246,0.8));
+}
+
+.card {
+    background: var(--card-bg);
+    color: var(--fg);
+    border: none;
+    box-shadow: 0 4px 12px var(--card-shadow);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px var(--card-shadow);
+}
+
+.card-title {
+    color: var(--fg-heading);
+    font-weight: 700;
+}
+
+.card-text {
+    color: var(--muted, rgba(230,238,246,0.75));
+}
+
+.badge-success {
+    background-color: #28a745 !important;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-outline-secondary {
+    color: var(--fg);
+    border-color: rgba(255,255,255,0.3);
+}
+
+.btn-outline-secondary:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: var(--fg);
+}
+
+.placeholder-img {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f1f1;
+    color: #666;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    color: var(--fg);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.modal-footer {
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.modal-title {
+    color: var(--fg-heading);
+    font-weight: 700;
+}
+
+.close {
+    color: var(--fg) !important;
+    opacity: 0.7;
+}
+
+.close:hover {
+    opacity: 1;
+}
+
+.article-content {
+    line-height: 1.8;
+}
+
+.article-content p {
+    margin-bottom: 15px;
+    color: var(--fg);
+}
+
+.gap-2 {
+    gap: 8px;
+}
+
+@media (max-width: 576px) {
+    .learning-header {
+        padding: 20px !important;
+    }
+    
+    .learning-header h1 {
+        font-size: 24px;
+    }
+}
+</style>
+
+{% endblock %}

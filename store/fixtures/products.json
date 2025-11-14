@@ -1,0 +1,52 @@
+[
+  {
+    "model": "store.product",
+    "pk": 1,
+    "fields": {
+      "name": "Fresh Tomatoes",
+      "price": 60.0,
+      "digital": false,
+      "image": "images/tomatoes.svg"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 2,
+    "fields": {
+      "name": "Organic Spinach",
+      "price": 40.0,
+      "digital": false,
+      "image": "images/spinach.svg"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 3,
+    "fields": {
+      "name": "Red Apples",
+      "price": 120.0,
+      "digital": false,
+      "image": "images/apples.svg"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 4,
+    "fields": {
+      "name": "Organic Rice (5kg)",
+      "price": 450.0,
+      "digital": false,
+      "image": "images/rice.svg"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 5,
+    "fields": {
+      "name": "Fresh Milk (1L)",
+      "price": 55.0,
+      "digital": false,
+      "image": "images/milk.svg"
+    }
+  }
+]

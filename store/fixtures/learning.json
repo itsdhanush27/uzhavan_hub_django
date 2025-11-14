@@ -1,0 +1,122 @@
+[
+  {
+    "model": "store.learning",
+    "pk": 1,
+    "fields": {
+      "title": "Organic Farming Basics: Getting Started",
+      "content": "Organic farming is a method of crop production that involves naturally derived pesticides and fertilizers. Learn the fundamentals of transitioning to organic farming, including soil preparation, crop selection, and natural pest management. Start with small plots, build your soil health, and gradually expand. Key practices include crop rotation, composting, and integrated pest management. This approach takes time but creates sustainable, healthy food production systems that benefit the environment and your long-term yields.",
+      "category": "Farming Tips",
+      "image": "",
+      "date_created": "2025-01-15T08:00:00Z",
+      "date_updated": "2025-01-15T08:00:00Z"
+    }
+  },
+  {
+    "model": "store.learning",
+    "pk": 2,
+    "fields": {
+      "title": "Water Management: Drip Irrigation Systems",
+      "content": "Efficient water use is critical for sustainable agriculture. Drip irrigation delivers water directly to plant roots, reducing waste and improving crop yields by up to 50%. Learn how to install and maintain drip systems in your fields. Calculate water requirements based on soil type, climate, and crop needs. Drip irrigation also reduces disease pressure by keeping foliage dry. Start with small sections, monitor soil moisture, and adjust schedules seasonally. This investment in irrigation infrastructure pays off through reduced water bills and increased productivity.",
+      "category": "Farming Tips",
+      "image": "",
+      "date_created": "2025-01-14T10:30:00Z",
+      "date_updated": "2025-01-14T10:30:00Z"
+    }
+  },
+  {
+    "model": "store.learning",
+    "pk": 3,
+    "fields": {
+      "title": "Pest Control Without Chemicals",
+      "content": "Natural pest management protects crops while preserving beneficial insects and soil health. Techniques include companion planting (marigolds repel insects), neem oil spray, insecticidal soap, and introducing predatory insects like ladybugs. Scout fields regularly to catch infestations early. Use row covers to protect seedlings. Encourage birds by providing perches and water sources. Rotate crops to break pest cycles. A diverse farm ecosystem is your best defense against pests.",
+      "category": "Pest Management",
+      "image": "",
+      "date_created": "2025-01-13T14:15:00Z",
+      "date_updated": "2025-01-13T14:15:00Z"
+    }
+  },
+  {
+    "model": "store.learning",
+    "pk": 4,
+    "fields": {
+      "title": "Building Healthy Soil: The Foundation of Farming",
+      "content": "Soil is the lifeblood of agriculture. Healthy soil contains organic matter, beneficial microbes, and balanced nutrients. Test your soil annually for pH, nitrogen, phosphorus, and potassium levels. Add compost to increase organic matter and improve water retention. Avoid over-tilling, which damages soil structure. Use cover crops in off-season to prevent erosion and add nitrogen naturally. Mulch reduces evaporation and regulates soil temperature. Invest time in soil health now for exponentially better harvests in the future.",
+      "category": "Sustainable Practices",
+      "image": "",
+      "date_created": "2025-01-12T09:45:00Z",
+      "date_updated": "2025-01-12T09:45:00Z"
+    }
+  },
+  {
+    "model": "store.learning",
+    "pk": 5,
+    "fields": {
+      "title": "Crop Rotation: Maximize Yields Naturally",
+      "content": "Crop rotation is an ancient farming technique that boosts soil fertility and reduces pest pressure. Rotate crops between legume-growing years (which fix nitrogen), followed by high-demand crops like tomatoes or corn. Avoid planting the same family in the same spot for at least 3 years. A 4-year rotation cycle works well for most farms: legumes, root vegetables, brassicas, and heavy feeders. Plan your rotation using a grid to track which crops go where each year. This practice eliminates the need for expensive nitrogen fertilizers.",
+      "category": "Sustainable Practices",
+      "image": "",
+      "date_created": "2025-01-11T11:20:00Z",
+      "date_updated": "2025-01-11T11:20:00Z"
+    }
+  },
+  {
+    "model": "store.learning",
+    "pk": 6,
+    "fields": {
+      "title": "Home Gardening: Start Small, Dream Big",
+      "content": "Urban farming and home gardening make fresh produce accessible to everyone. Start with a small raised bed or container garden on your balcony. Choose easy-to-grow crops like tomatoes, herbs, lettuce, and peppers. Water early in the morning to prevent disease. Provide 6-8 hours of sunlight daily. Use quality potting soil in containers. Join local gardening groups for tips and support. Your first harvest will motivate you to expand. Even apartment dwellers can grow fresh vegetables and herbs year-round with proper setup.",
+      "category": "Farming Tips",
+      "image": "",
+      "date_created": "2025-01-10T13:00:00Z",
+      "date_updated": "2025-01-10T13:00:00Z"
+    }
+  },
+  {
+    "model": "store.learning",
+    "pk": 7,
+    "fields": {
+      "title": "Composting: Turn Waste Into Garden Gold",
+      "content": "Composting transforms kitchen scraps and yard waste into nutrient-rich soil amendment. Maintain a 3:1 ratio of brown materials (dry leaves, straw) to green materials (vegetable scraps, grass clippings). Keep your pile moist like a wrung-out sponge and turn it weekly for faster decomposition. Avoid meat, dairy, and oil which attract pests. A well-maintained compost pile reaches 140°F internally, killing weed seeds and pathogens. In 3-6 months, you'll have finished compost ready to enrich your garden beds. Start composting today and reduce waste while improving your soil.",
+      "category": "Sustainable Practices",
+      "image": "",
+      "date_created": "2025-01-09T15:30:00Z",
+      "date_updated": "2025-01-09T15:30:00Z"
+    }
+  },
+  {
+    "model": "store.learning",
+    "pk": 8,
+    "fields": {
+      "title": "Common Farm Pests and Organic Solutions",
+      "content": "Identify common pests before they destroy your crops. Aphids cluster on leaf undersides; spray with water or neem oil. Hornworms are large caterpillars on tomatoes; remove by hand or use Bt (Bacillus thuringiensis). Slugs and snails leave slime trails; collect at dawn or use diatomaceous earth. Whiteflies weaken plants by sucking sap; use yellow sticky traps. Scale insects appear as bumps on stems; scrape off with a brush. Early detection is key—scout fields daily. Combine multiple methods for best control: remove by hand, spray organic solutions, and introduce beneficial predators.",
+      "category": "Pest Management",
+      "image": "",
+      "date_created": "2025-01-08T10:00:00Z",
+      "date_updated": "2025-01-08T10:00:00Z"
+    }
+  },
+  {
+    "model": "store.learning",
+    "pk": 9,
+    "fields": {
+      "title": "Season Extension: Growing Beyond the Season",
+      "content": "Extend your growing season with simple structures like row covers, cold frames, and hoop houses. Row covers (lightweight fabric) protect seedlings from frost and insects while allowing light through. Cold frames create mini-greenhouses for hardening off transplants. Hoop houses (PVC pipes covered in plastic) extend seasons by 4-6 weeks on each end. Position structures to maximize southern exposure. Use thermal mass (water barrels) inside to absorb heat during the day and release it at night. These techniques enable year-round gardening even in cold climates.",
+      "category": "Sustainable Practices",
+      "image": "",
+      "date_created": "2025-01-07T12:45:00Z",
+      "date_updated": "2025-01-07T12:45:00Z"
+    }
+  },
+  {
+    "model": "store.learning",
+    "pk": 10,
+    "fields": {
+      "title": "Regenerative Agriculture: Healing the Land",
+      "content": "Regenerative agriculture goes beyond sustainable farming—it actively heals degraded soils and ecosystems. Key practices include minimizing soil disturbance, keeping soil covered (cover crops and mulch), maintaining living roots year-round, and increasing crop diversity. Rotational grazing and integrated crop-livestock systems restore soil carbon. Farmers implementing regenerative practices report improved water infiltration, reduced erosion, and increased yields after the transition period. This approach builds resilience to droughts and pests while sequestering carbon. Join the regenerative movement to create a thriving farm ecosystem for future generations.",
+      "category": "Sustainable Practices",
+      "image": "",
+      "date_created": "2025-01-06T16:20:00Z",
+      "date_updated": "2025-01-06T16:20:00Z"
+    }
+  }
+]

@@ -1,0 +1,148 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Profile Info Section -->
+        <div class="col-md-4">
+            <div class="card product-card">
+                <div class="card-body">
+                    <h5 class="card-title">👤 என் சுயவிவரம்</h5>
+                    <hr>
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        <div class="form-group">
+                            <label for="name">முழு பெயர்</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ customer.name|default:'' }}" placeholder="உங்கள் பெயர்">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">மின்னஞ்சல்</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ customer.email|default:'' }}" placeholder="உங்கள் மின்னஞ்சல்">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="username">பயனர் பெயர்</label>
+                            <input type="text" class="form-control" id="username" disabled value="{{ user.username }}">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success btn-block">சுயவிவரம் புதுப்பிக்கவும்</button>
+                    </form>
+                    
+                    {% if message %}
+                    <div class="alert alert-success mt-3" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Order History Section -->
+        <div class="col-md-8">
+            <div class="card product-card">
+                <div class="card-body">
+                    <h5 class="card-title">📦 ஆர்டர் வரலாறு</h5>
+                    <hr>
+                    
+                    {% if orders %}
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>ஆர்டர் ஐடி</th>
+                                        <th>தேதி</th>
+                                        <th>மொத்தம்</th>
+                                        <th>நிலைமை</th>
+                                        <th>பொருட்கள்</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for order in orders %}
+                                    <tr>
+                                        <td>#{{ order.id }}</td>
+                                        <td>{{ order.date_ordered|date:"M d, Y" }}</td>
+                                        <td>ரூ. {{ order.get_cart_total|floatformat:2 }}</td>
+                                        <td>
+                                            {% if order.complete %}
+                                            <span class="badge badge-success">முடிந்தது</span>
+                                            {% else %}
+                                            <span class="badge badge-warning">நிலுவையில் உள்ளது</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ order.get_cart_items }} உருப்படிகள்</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                    <p class="text-muted">நீங்கள் இன்னும் எந்த ஆர்டர்களையும் இடவில்லை. <a href="{% url 'store' %}">கொள்முதல் செய்ய தொடங்குங்கள்!</a></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    background: var(--card-bg);
+    color: var(--fg);
+    border: none;
+    box-shadow: 0 4px 12px var(--card-shadow);
+}
+
+.card-title {
+    color: var(--fg-heading);
+    font-weight: 700;
+}
+
+.form-control {
+    background: rgba(255,255,255,0.05);
+    color: var(--fg);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.form-control:focus {
+    background: rgba(255,255,255,0.08);
+    color: var(--fg);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 0.2rem rgba(88,214,255,0.25);
+}
+
+.form-control::placeholder {
+    color: rgba(230, 238, 246, 0);
+}
+
+.table {
+    color: var(--fg);
+}
+
+.table thead th {
+    color: var(--fg-heading);
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+}
+
+.badge-success {
+    background-color: #28a745;
+}
+
+.badge-warning {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+</style>
+
+{% endblock %}

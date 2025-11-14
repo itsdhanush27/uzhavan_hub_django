@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="100%" height="100%" fill="#e3f2fd"/>
+  <rect x="180" y="140" width="120" height="220" fill="#fff" stroke="#90caf9" stroke-width="6" rx="8"/>
+  <text x="420" y="260" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#333">Fresh Milk (1L)</text>
+</svg>

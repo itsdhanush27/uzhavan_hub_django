@@ -1,0 +1,573 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+        <div class="image-container">
+    <img src="{% static '../static/images/cropfield.jpeg' %}" class="d-block w-100" alt="...">
+    <div class="overlay">
+        <h3>உழவன் ஹப்-க்கு வரவேற்கிறோம்</h3>
+    </div>
+</div>
+
+<div class="row mt-5">
+    {% for product in products %}
+    <div class="col-lg-4 col-md-6">
+        <div class="card product-card">
+            {% if product.imageURL %}
+            <img class="card-img-top" src="{{ product.imageURL }}" alt="{{ product.name }}">
+            {% else %}
+            <div class="card-img-top placeholder-img">No image</div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">உள்ளூர் பண்ணைகளிலிருந்து புதிய மற்றும் உயர்தர பொருள்.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="price">ரூ. <strong>{{ product.price }}</strong></h6>
+                    <div class="btn-group">
+                        <button data-product="{{product.id}}" data-action="add" class="btn btn-sm btn-success add-btn update-cart">சேர்</button>
+                        <!-- View button now focuses the product card and reveals benefits -->
+                        <button type="button" class="btn btn-sm btn-outline-secondary view-btn" data-name="{{ product.name }}" data-price="{{ product.price }}">பார்க்க</button>
+                    </div>
+                </div>
+                <!-- Hidden benefits area that will be populated on View click -->
+                <div class="product-benefits" style="display:none; margin-top:10px;">
+                    <!-- content injected by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- AI Chatbot Widget -->
+<div id="chatbot-widget" class="chatbot-widget">
+  <div class="chatbot-header">
+    <h5>UzhavanHub Assistant 🤖</h5>
+        <button id="chatbot-close" class="chatbot-close-btn" onclick="(function(){var w=document.getElementById('chatbot-widget'); if(w) w.classList.remove('active');})()">&times;</button>
+  </div>
+        <div id="chatbot-messages" class="chatbot-messages">
+        <div class="chatbot-message bot-message">
+            <p>வணக்கம்! 👋 நான் உங்கள் AI வர்த்தக உதவியாளர். நான் இன்று எப்படி உதவலாம்?</p>
+        </div>
+    </div>
+        <div class="chatbot-input-area">
+        <input type="text" id="chatbot-input" placeholder="எதையும் கேளுங்கள்..." />
+        <button id="chatbot-send" class="chatbot-send-btn">அனுப்பு</button>
+    </div>
+</div>
+
+<!-- Chatbot Toggle Button (Floating) -->
+<button id="chatbot-toggle" class="chatbot-toggle-btn" onclick="(function(){var w=document.getElementById('chatbot-widget'); if(!w) return; w.classList.toggle('active'); var i=document.getElementById('chatbot-input'); if(w.classList.contains('active') && i) i.focus();})()">
+    💬
+</button>
+
+{% block css %}
+<style>
+.image-container {
+    position: relative;
+    width: 100%;
+    max-height: 500px; /* Adjust as needed */
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.image-container .overlay {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2); /* Black with 50% opacity */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    z-index: 1;
+}
+
+.image-container h3 {
+    margin: 0;
+    font-size: 2rem;
+	color: white; /* Adjust font size as needed */
+}
+
+/* Chatbot Styles */
+.chatbot-toggle-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #28a745;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+.chatbot-toggle-btn:hover {
+    background-color: #218838;
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.chatbot-widget {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 380px;
+    height: 500px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 40px rgba(0, 0, 0, 0.16);
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+    animation: slideUp 0.3s ease;
+}
+
+.chatbot-widget.active {
+    display: flex;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.chatbot-header {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    padding: 15px;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chatbot-header h5 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.chatbot-close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.chatbot-close-btn:hover {
+    opacity: 0.8;
+}
+
+.chatbot-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.chatbot-message {
+    display: flex;
+    margin-bottom: 8px;
+}
+
+.chatbot-message p {
+    margin: 0;
+    padding: 10px 15px;
+    border-radius: 8px;
+    max-width: 85%;
+    word-wrap: break-word;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.bot-message {
+    justify-content: flex-start;
+}
+
+.bot-message p {
+    background-color: #e9ecef;
+    color: #333;
+}
+
+.user-message {
+    justify-content: flex-end;
+}
+
+.user-message p {
+    background-color: #28a745;
+    color: white;
+}
+
+.chatbot-input-area {
+    padding: 12px;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    gap: 8px;
+}
+
+#chatbot-input {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+    outline: none;
+}
+
+#chatbot-input:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.3);
+}
+
+.chatbot-send-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.chatbot-send-btn:hover {
+    background-color: #218838;
+}
+
+.chatbot-send-btn:active {
+    transform: scale(0.95);
+}
+
+/* Scrollbar styling for messages */
+.chatbot-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chatbot-messages::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.chatbot-messages::-webkit-scrollbar-thumb {
+    background: #28a745;
+    border-radius: 10px;
+}
+
+.chatbot-messages::-webkit-scrollbar-thumb:hover {
+    background: #218838;
+}
+
+/* Product card focus styles and benefits */
+.product-card.focused {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+    border: 1px solid rgba(40,167,69,0.12);
+}
+.product-benefits {
+    background: #f8fbf8;
+    border: 1px solid #e6f4ea;
+    padding: 10px;
+    border-radius: 6px;
+    color: #1f2d1f;
+    font-size: 14px;
+}
+.product-benefits ul { margin: 6px 0 0 18px; padding: 0; }
+.product-benefits .close-benefits { float: right; cursor: pointer; font-weight: 700; color: #555; }
+
+@media (max-width: 480px) {
+    .chatbot-widget {
+        width: 90vw;
+        height: 70vh;
+        max-width: 400px;
+    }
+}
+</style>
+{% endblock css %}
+
+{% block javascript %}
+<script>
+// Fallback toggle function for environments where the DOMContentLoaded initializer
+// didn't attach event listeners. Keeps the widget usable immediately.
+function __chatbot_fallback_toggle(){
+    try{
+        var w = document.getElementById('chatbot-widget');
+        var i = document.getElementById('chatbot-input');
+        if(!w) return;
+        w.classList.toggle('active');
+        if(w.classList.contains('active') && i) i.focus();
+    }catch(e){console.warn('chatbot fallback toggle error', e)}
+}
+
+// Ensure send button has a basic click handler if main script failed
+document.addEventListener('click', function(e){
+    if(e.target && e.target.id === 'chatbot-send'){
+        var input = document.getElementById('chatbot-input');
+        if(input) input.dispatchEvent(new KeyboardEvent('keypress', {key: 'Enter'}));
+    }
+});
+
+// Also allow clicks on images or other elements to open the chatbot.
+// This covers cases where users click an image/icon instead of the floating button.
+document.addEventListener('click', function(e){
+    try{
+        var el = e.target;
+        if(!el) return;
+        // Match common chatbot toggle targets: the button, elements with data-toggle="chatbot",
+        // elements with class/id suggesting chatbot, or images titled/alt'd with 'chat'
+        var shouldToggle = false;
+        if(el.id === 'chatbot-toggle' || el.classList.contains('chatbot-toggle-btn')) shouldToggle = true;
+        if(el.dataset && el.dataset.toggle === 'chatbot') shouldToggle = true;
+        if(el.id === 'chatbot-img' || el.classList.contains('chatbot-img')) shouldToggle = true;
+        if(el.tagName === 'IMG'){
+            var alt = (el.alt || '').toLowerCase();
+            var title = (el.title || '').toLowerCase();
+            if(alt.includes('chat') || title.includes('chat')) shouldToggle = true;
+        }
+        if(shouldToggle){
+            __chatbot_fallback_toggle();
+            e.preventDefault();
+        }
+    }catch(err){console.warn('chatbot global click handler error', err)}
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Initializing chatbot...');
+    
+    const chatbotToggle = document.getElementById('chatbot-toggle');
+    const chatbotWidget = document.getElementById('chatbot-widget');
+    const chatbotClose = document.getElementById('chatbot-close');
+    const chatbotInput = document.getElementById('chatbot-input');
+    const chatbotSend = document.getElementById('chatbot-send');
+    const chatbotMessages = document.getElementById('chatbot-messages');
+
+    // Check if all elements exist
+    if (!chatbotToggle || !chatbotWidget || !chatbotClose || !chatbotInput || !chatbotSend || !chatbotMessages) {
+        console.error('Chatbot elements not found in DOM');
+        return;
+    }
+
+    console.log('All chatbot elements found');
+
+    // Toggle chatbot widget
+    chatbotToggle.addEventListener('click', function() {
+        console.log('Toggle button clicked');
+        chatbotWidget.classList.toggle('active');
+        if (chatbotWidget.classList.contains('active')) {
+            chatbotInput.focus();
+            console.log('Chatbot opened');
+        } else {
+            console.log('Chatbot closed');
+        }
+    });
+
+    // Close chatbot
+    chatbotClose.addEventListener('click', function() {
+        console.log('Close button clicked');
+        chatbotWidget.classList.remove('active');
+    });
+
+    // Send message function
+    function sendMessage() {
+        const userMessage = chatbotInput.value.trim();
+        console.log('Sending message:', userMessage);
+        
+        if (!userMessage) {
+            console.log('Empty message, returning');
+            return;
+        }
+
+        // Add user message to chat
+        addMessage(userMessage, 'user');
+        chatbotInput.value = '';
+        chatbotInput.focus();
+
+            // Show loading message
+        addMessage('சிந்திக்கிறேன்...', 'bot');
+
+        // Send to backend and get response
+        fetch('{% url "chatbot" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify({ message: userMessage })
+        })
+        .then(response => {
+            console.log('Response status:', response.status);
+            if (!response.ok) {
+                throw new Error('HTTP error, status = ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Response data:', data);
+            // Remove the "Thinking..." message
+            const messages = chatbotMessages.querySelectorAll('.bot-message');
+            if (messages.length > 0) {
+                messages[messages.length - 1].remove();
+            }
+            // Add actual response
+            addMessage(data.response, 'bot');
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+            // Remove the "Thinking..." message
+            const messages = chatbotMessages.querySelectorAll('.bot-message');
+            if (messages.length > 0) {
+                messages[messages.length - 1].remove();
+            }
+            addMessage('மன்னிக்கவும், பிழை ஏற்பட்டது: ' + error.message, 'bot');
+        });
+    }
+
+    // Add message to chat display
+    function addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('chatbot-message', sender + '-message');
+        
+        const messagePara = document.createElement('p');
+        messagePara.textContent = text;
+        
+        messageDiv.appendChild(messagePara);
+        chatbotMessages.appendChild(messageDiv);
+
+        // Scroll to bottom
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        console.log('Message added:', sender, text);
+    }
+
+    // Send button click
+    chatbotSend.addEventListener('click', sendMessage);
+
+    // Send on Enter key
+    chatbotInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+
+    // Get CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    console.log('Chatbot initialization complete!');
+
+    // ---- Product "View" button behavior: focus card and show benefits ----
+    function generateBenefitsHtml(name, price) {
+        // Basic, generic benefits. You can replace this with product-specific content later.
+        return `
+            <span class="close-benefits" title="Close">&times;</span>
+            <strong>Benefits of ${name}:</strong>
+            <ul>
+                <li>Freshly sourced from local farms</li>
+                <li>High nutritional value and natural taste</li>
+                <li>Supports local farmers and sustainable practices</li>
+                <li>Carefully handled and ready to use</li>
+            </ul>
+            <div style="margin-top:6px; font-size:13px; color:#3a663a">Price: Rs. <strong>${price}</strong></div>
+        `;
+    }
+
+    function clearFocusedCards() {
+        document.querySelectorAll('.product-card.focused').forEach(function(c){
+            c.classList.remove('focused');
+            const benefits = c.querySelector('.product-benefits');
+            if (benefits) benefits.style.display = 'none';
+        });
+    }
+
+    document.querySelectorAll('.view-btn').forEach(function(btn){
+        btn.addEventListener('click', function(evt){
+            evt.preventDefault();
+            const card = btn.closest('.product-card');
+            if (!card) return;
+
+            // Toggle behavior: if already focused, hide; otherwise focus
+            const benefitsEl = card.querySelector('.product-benefits');
+            const isVisible = benefitsEl && benefitsEl.style.display && benefitsEl.style.display !== 'none';
+            if (isVisible) {
+                // hide
+                card.classList.remove('focused');
+                benefitsEl.style.display = 'none';
+                return;
+            }
+
+            // Remove focus from others
+            clearFocusedCards();
+
+            // Focus this card visually and on screen
+            card.classList.add('focused');
+            try { card.setAttribute('tabindex','-1'); card.focus(); } catch(e){}
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Populate benefits area
+            if (benefitsEl) {
+                const name = btn.dataset.name || 'Product';
+                const price = btn.dataset.price || '';
+                benefitsEl.innerHTML = generateBenefitsHtml(name, price);
+                benefitsEl.style.display = 'block';
+
+                // Attach close handler
+                const closeBtn = benefitsEl.querySelector('.close-benefits');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', function(){
+                        benefitsEl.style.display = 'none';
+                        card.classList.remove('focused');
+                    });
+                }
+            }
+        });
+    });
+
+    // Clicking outside any product-card clears focused state
+    document.addEventListener('click', function(e){
+        const insideCard = e.target.closest && e.target.closest('.product-card');
+        const isViewBtn = e.target && e.target.classList && e.target.classList.contains('view-btn');
+        if (!insideCard && !isViewBtn) {
+            clearFocusedCards();
+        }
+    });
+});
+</script>
+{% endblock javascript %}
+
+{% endblock content %}

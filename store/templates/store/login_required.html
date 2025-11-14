@@ -1,0 +1,52 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card product-card">
+                <div class="card-body text-center">
+                    <h3 class="card-title mb-4">🔐 உள்நுழைவு தேவை</h3>
+                    <p class="card-text mb-4">
+                        இந்தப் பக்கத்தை பார்க்க உள்நுழைய வேண்டும். தயவுசெய்து உங்கள் கணக்கில் உள்நுழையுங்கள் அல்லது புதிய கணக்கை உருவாக்குங்கள்.
+                    </p>
+                    
+                    <div class="btn-group" role="group">
+                        <a href="{% url 'store' %}" class="btn btn-outline-secondary">← கடைக்கு திரும்பு</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    background: var(--card-bg);
+    color: var(--fg);
+    border: none;
+    box-shadow: 0 4px 12px var(--card-shadow);
+}
+
+.card-title {
+    color: var(--fg-heading);
+    font-weight: 700;
+}
+
+.card-text {
+    color: var(--muted, rgba(230,238,246,0.75));
+}
+
+.btn-outline-secondary {
+    color: var(--fg);
+    border-color: rgba(255,255,255,0.3);
+}
+
+.btn-outline-secondary:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: var(--fg);
+}
+</style>
+
+{% endblock %}
